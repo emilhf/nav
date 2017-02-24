@@ -71,6 +71,7 @@ define([
             this.fetchGraphModel();
 
             // We're using force to distribute the nodes to make them more readable
+            console.log("activate force");
             this.force.start();
 
         },
@@ -646,6 +647,7 @@ define([
             _.each(this.nodes, function (node) {
                 node.fixed = false;
             });
+            console.log("resume force");
             this.force.resume();
         },
 

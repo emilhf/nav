@@ -36,8 +36,7 @@ define([
             'click #refresh-interval input[type=radio]': 'setRefreshInterval',
             'click #refresh-interval input[type=checkbox]': 'setRefreshTrafficOnly',
             'click #netmap-view-unfix-nodes': 'fireUnfixNodes',
-            'click #netmap-view-fix-nodes': 'fireFixNodes',
-            'click #netmap-view-toggle-force': 'fireToggleForce'
+            'click #netmap-view-fix-nodes': 'fireFixNodes'
         },
 
         filterLabelTemplate: _.template('' +
