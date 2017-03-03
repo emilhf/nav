@@ -280,7 +280,7 @@ class NodePositionUpdate(generics.UpdateAPIView):
                 obj.x = defaults['x']
                 obj.y = defaults['y']
                 obj.save()
-        return Response()
+        return Response(status=200)
 
 
 class NetmapGraph(views.APIView):
