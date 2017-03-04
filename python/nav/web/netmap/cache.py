@@ -58,6 +58,15 @@ def cache_topology(layer):
         return get_traffic
     return _decorator
 
+def invalidate_topology_cache(layer):
+    cache_key = _cache_key("topology", layer);
+    cache.delete(cache_key)
+
+def get_topology_nodes(layer):
+    cache_key = _cache_key("topology", layer);
+    return cache.get(cache_key).nodes
+
+
 # TODO: Consider using a proper slug generator for this
 def _cache_key(*args):
     """Construct a namespace cache key for storing/retrieving memory-cached data

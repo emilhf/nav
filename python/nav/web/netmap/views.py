@@ -44,6 +44,7 @@ from .graph import (
     get_layer2_traffic,
     get_layer3_traffic,
 )
+from .cache import invalidate_topology_cache, get_topology_nodes
 # Ignore linting errors from DRF class hierarchy
 # pylint: disable=R0901,R0904
 
@@ -280,6 +281,13 @@ class NodePositionUpdate(generics.UpdateAPIView):
                 obj.x = defaults['x']
                 obj.y = defaults['y']
                 obj.save()
+            # TODO try to update the node in the cache as well. this is done to
+            # avoid rebuilding the whole topology
+        # invalidate global topology cache to reflect new positions
+        # this is suboptimal, and we should consider storing positions
+        # separately from the nodes themselves, and just update in-place
+        invalidate_topology_cache("layer 2")
+        invalidate_topology_cache("layer 3")
         return Response(status=200)
 
 

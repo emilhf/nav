@@ -36,7 +36,8 @@ define([
             'click #refresh-interval input[type=radio]': 'setRefreshInterval',
             'click #refresh-interval input[type=checkbox]': 'setRefreshTrafficOnly',
             'click #netmap-view-unfix-nodes': 'fireUnfixNodes',
-            'click #netmap-view-fix-nodes': 'fireFixNodes'
+            'click #netmap-view-fix-nodes': 'fireFixNodes',
+            'click #netmap-view-toggle-force': 'fireToggleForce'
         },
 
         filterLabelTemplate: _.template('' +
@@ -485,6 +486,19 @@ define([
             this.setTopologySelectForCurrentView();
             this.setViewButtonsForCurrentView();
             this.resetRefreshControls();
+        },
+
+        fireToggleForce: function (e) {
+            var targetElem = this.$(e.currentTarget);
+            var statusOn = targetElem.data('status') === 'on';
+            if (statusOn) {
+                targetElem.data('status', 'off');
+                targetElem.html('Start animation <i class="fa fa-play"></i>');
+            } else { // off
+                targetElem.data('status', 'on');
+                targetElem.html('Stop animation <i class="fa fa-stop"></i>');
+            }
+            Backbone.EventBroker.trigger('netmap:toggleForce', statusOn);
         },
 
         setCategoriesForCurrentView: function () {
